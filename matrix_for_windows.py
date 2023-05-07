@@ -1,3 +1,4 @@
+import bext
 from bext import goto
 from bext import hide
 from time import sleep
@@ -54,7 +55,7 @@ class MatrixForWindows:
 
     '''Формирующая каплю функция'''
 
-    def matrixdrop(self, dropheight, horizcoord, coordofthedropbeginn, timesleep):
+    def matrixdrop(self, dropheight, horizcoord, coordofthedropbeginn):
         while not self.switch:  # общий цикл процесса
             for b in range(6):  # цикл жизни капли
                 verticalcoordcounter = coordofthedropbeginn
@@ -67,14 +68,14 @@ class MatrixForWindows:
                             print(f'{Fore.GREEN}{self.matrixvoid()}')  # выводится пустота
                         else:
                             print(f'{Fore.GREEN}{self.matrixsymbol()}')  # в противном случае генерируется капелька
-                    sleep(timesleep)
+                    sleep(float(f'{0.0}{randint(3, 6)}'))
             self.maincounter = 0
 
     '''Формирующая потоки капель функция'''
 
     def matrixmove(self, coordofthedropbeginn, dropheight, timesleep):
         hide()
-        for q in range(100):
+        for q in range(bext.width() // 2):
             Thread(
                 target=MatrixForWindows().matrixdrop,
                 args=(dropheight, self.horizcoordcounter, coordofthedropbeginn, timesleep)
